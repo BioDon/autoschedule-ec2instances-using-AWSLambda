@@ -38,8 +38,8 @@ ec2 = boto3.client('ec2')
 
 def lambda_handler(event, context):
     current_time = datetime.datetime.utcnow().time()
-    start_time = datetime.time(10, 0)  # 10 AM UTC -> 11:00 AM CET
-    end_time = datetime.time(17, 0)  # 17 PM UTC -> 6:00 PM CET
+    start_time = datetime.time(8, 0)  # 8 AM UTC -> 9:00 AM CET
+    end_time = datetime.time(17, 0)  # 5 PM UTC -> 6:00 PM CET
 
     if current_time >= start_time and current_time <= end_time:
         start_ec2_instances()
@@ -80,8 +80,13 @@ def stop_ec2_instances():
    * **Rule description**: Optionally, enter a description for the rule.
    * **Rule type**: Choose **Event pattern**.
    * **Event matching pattern**: Select **Schedule pattern**.
-   * **Schedule pattern**: Enter `rate(1 hour)` to trigger the Lambda function every hour.
+   * **Schedule pattern**: Enter `cron(0 8,18 ? * MON-FRI *)` to trigger the Lambda function every hour.
    * Leave other options as default.
+- This schedule expression specifies the following:
+    * Run at 8 AM and 6 PM (UTC time).
+    * On Monday to Friday.
+    * The ? indicates no specific day of the month.
+    * The * indicates every month.
 - Click on **Add** to add the trigger and create the EventBridge CloudWatch Event rule.
 - Ensure that the Lambda function and the trigger are both enabled by checking the status in the top-right corner of the Lambda function configuration page.
 - Click on **Save** to save the changes to the Lambda function configuration.
