@@ -101,4 +101,4 @@ Remember, the goal is to tailor the code to your needs. The current version is a
 ## Conclusion
 
 In this guide, we have demonstrated how to automatically schedule the start and stop of EC2 instances using AWS Lambda and CloudWatch Events. By following the steps outlined above, you can create a cost-effective and efficient solution for managing EC2 instance runtime based on predefined schedules.
-In our example, your instances will now start and stop at 8am UTC and 6pm UTC repectively.
+In our example, your instances will now start and stop at 8am UTC and 5pm UTC repectively.
