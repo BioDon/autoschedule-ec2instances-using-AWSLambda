@@ -14,8 +14,8 @@ In this guide, we will demonstrate how to automatically schedule the start and s
 - Select Lambda as the service that will use this role.
 - Click on Next: Permissions.
 - Attach policies to the role that allow Lambda to interact with EC2 instances and CloudWatch Logs. Use the following managed policies:
-    "AWSLambdaBasicExecutionRole"
-    "AmazonEC2FullAccess"
+   * "AWSLambdaBasicExecutionRole"
+   * "AmazonEC2FullAccess"
 - Click on Next: Tags (optional) and Next: Review.
 - Enter a name and description for the role, then click on Create role.
 
@@ -71,20 +71,20 @@ def stop_ec2_instances():
 
 ## 3. Add Trigger and Create EventBridge CloudWatch Event
 - Click on your Lambda function "AutoScheduleEC2" created in step 2.
-- In the Lambda function configuration page, scroll down to the Designer section.
-- Click on Add trigger.
-- Choose EventBridge (CloudWatch Events) as the trigger type.
+- In the Lambda function configuration page, scroll down to the **Designer** section.
+- Click on **Add trigger**.
+- Choose **EventBridge (CloudWatch Events)** as the trigger type.
 - Configure the trigger as follows:
-    Rule type: Choose Create a new rule.
-    Rule name: Enter a name for the rule (e.g., "AutoScheduleEC2Trigger").
-    Rule description: Optionally, enter a description for the rule.
-    Rule type: Choose Event pattern.
-    Event matching pattern: Select Schedule pattern.
-    Schedule pattern: Enter rate(1 hour) to trigger the Lambda function every hour.
-    Leave other options as default.
-- Click on Add to add the trigger and create the EventBridge CloudWatch Event rule.
+   * **Rule type**: Choose **Create a new rule**.
+   * **Rule name**: Enter a name for the rule (e.g., "AutoScheduleEC2Trigger").
+   * **Rule description**: Optionally, enter a description for the rule.
+   * **Rule type**: Choose **Event pattern**.
+   * **Event matching pattern**: Select **Schedule pattern**.
+   * **Schedule pattern**: Enter `rate(1 hour)` to trigger the Lambda function every hour.
+   * Leave other options as default.
+- Click on **Add** to add the trigger and create the EventBridge CloudWatch Event rule.
 - Ensure that the Lambda function and the trigger are both enabled by checking the status in the top-right corner of the Lambda function configuration page.
-- Click on Save to save the changes to the Lambda function configuration.
+- Click on **Save** to save the changes to the Lambda function configuration.
 
 ## Conclusion
 
