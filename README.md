@@ -26,9 +26,9 @@ In this guide, we will demonstrate how to automatically schedule the start and s
 - Choose Author from scratch.
 - Enter a name for your Lambda function (e.g., "AutoScheduleEC2").
 - Choose the appropriate runtime (e.g., Python 3.12).
-- Under Permissions, select Use an existing role and choose the IAM role created in step 1.
+- Under Permissions, click Change default execution role and select Use an existing role and choose the IAM role created in step 1.
 - Click on Create function.
-- In the function code editor, paste the Python code provided below and then click Deploy:
+- In the function code editor, replace the contents of "lambda_function.py" with the Python code provided below and then click Deploy:
 
 ```bash
 import boto3
@@ -69,28 +69,36 @@ def stop_ec2_instances():
             print(f"Instance {instance_id} stopped.")
 ```
 
+The provided code is designed to start and stop all instances at a specific time of the day. This is its default behavior. However, if you need to target only specific instances, you will need to modify the code to fit your specific requirements.
+
+Here are the steps to customize the code:
+
+- Identify the instances you want to affect: You need to know the IDs of the instances you want to start or stop.
+
+- Modify the code: Replace the part of the code that fetches all instances with a piece that fetches only your targeted instances. You can do this by using the instance IDs you gathered in the first step.
+
+Remember, the goal is to tailor the code to your needs. The current version is a broad solution, and you may need a more focused approach depending on your situation.
+
 ## 3. Add Trigger and Create EventBridge CloudWatch Event
 - Click on your Lambda function "AutoScheduleEC2" created in step 2.
-- In the Lambda function configuration page, scroll down to the **Designer** section.
+- In the Lambda function configuration page, scroll down to the **Function Overview** section.
 - Click on **Add trigger**.
 - Choose **EventBridge (CloudWatch Events)** as the trigger type.
 - Configure the trigger as follows:
    * **Rule type**: Choose **Create a new rule**.
    * **Rule name**: Enter a name for the rule (e.g., "AutoScheduleEC2Trigger").
    * **Rule description**: Optionally, enter a description for the rule.
-   * **Rule type**: Choose **Event pattern**.
-   * **Event matching pattern**: Select **Schedule pattern**.
-   * **Schedule pattern**: Enter `cron(0 8,18 ? * MON-FRI *)` to trigger the Lambda function every hour.
-   * Leave other options as default.
-- This schedule expression specifies the following:
+   * **Rule type**: Choose **Schedule expression**.
+   * **Schedule expression**: Enter `cron(0 8,18 ? * MON-FRI *)`.
+- (INFO) This schedule expression specifies the following:
     * Run at 8 AM and 6 PM (UTC time).
     * On Monday to Friday.
     * The ? indicates no specific day of the month.
     * The * indicates every month.
 - Click on **Add** to add the trigger and create the EventBridge CloudWatch Event rule.
-- Ensure that the Lambda function and the trigger are both enabled by checking the status in the top-right corner of the Lambda function configuration page.
-- Click on **Save** to save the changes to the Lambda function configuration.
+
 
 ## Conclusion
 
 In this guide, we have demonstrated how to automatically schedule the start and stop of EC2 instances using AWS Lambda and CloudWatch Events. By following the steps outlined above, you can create a cost-effective and efficient solution for managing EC2 instance runtime based on predefined schedules.
+In our example, your instances will now start and stop at 8am UTC and 6pm UTC repectively.
