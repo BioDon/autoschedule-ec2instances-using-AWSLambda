@@ -19,6 +19,27 @@ In this guide, we will demonstrate how to automatically schedule the start and s
 - Click on Next: Tags (optional) and Next: Review.
 - Enter a name and description for the role, then click on Create role.
 
+Please be aware that granting full EC2 Access is generally not recommended due to security concerns. However, for the purpose of this demonstration, we will allow it. In a production environment, it's advisable to limit the permissions to only what's necessary.
+
+You can modify the role in the AWS Management Console to add an inline policy in JSON format. This policy will specifically allow the starting and stopping of EC2 instances. Here's how the policy should look:
+(Skip this if you are only testing)
+
+```bash
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:StartInstances",
+                "ec2:StopInstances"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
 ## 2. Create Lambda Function
 
 - Navigate to the Lambda service.
@@ -78,6 +99,7 @@ Here are the steps to customize the code:
 - Modify the code: Replace the part of the code that fetches all instances with a piece that fetches only your targeted instances. You can do this by using the instance IDs you gathered in the first step.
 
 Remember, the goal is to tailor the code to your needs. The current version is a broad solution, and you may need a more focused approach depending on your situation.
+
 
 ## 3. Add Trigger and Create EventBridge CloudWatch Event
 - Click on your Lambda function "AutoScheduleEC2" created in step 2.
