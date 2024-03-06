@@ -19,9 +19,9 @@ In this guide, we will demonstrate how to automatically schedule the start and s
 - Click on Next: Tags (optional) and Next: Review.
 - Enter a name and description for the role, then click on Create role.
 
-Please be aware that granting full EC2 Access is generally not recommended due to security concerns. However, for the purpose of this demonstration, we will allow it. In a production environment, it's advisable to limit the permissions to only what's necessary.
+Please be aware that granting full EC2 Access ("AmazonEC2FullAccess") is generally not recommended due to security concerns. However, for the purpose of this demonstration, we will allow it. In a production environment, it's advisable to limit the permissions to only what's necessary.
 
-You can modify the role in the AWS Management Console to add an inline policy in JSON format. This policy will specifically allow the starting and stopping of EC2 instances. Here's how the policy should look:
+You can replace the role in the AWS Management Console with an inline policy in JSON format. This policy will specifically allow the starting and stopping of EC2 instances. Here's how the policy should look:
 (Skip this if you are only testing)
 
 ```bash
