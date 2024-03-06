@@ -32,7 +32,8 @@ You can modify the role in the AWS Management Console to add an inline policy in
             "Effect": "Allow",
             "Action": [
                 "ec2:StartInstances",
-                "ec2:StopInstances"
+                "ec2:StopInstances",
+                "ec2:DescribeInstances"
             ],
             "Resource": "*"
         }
